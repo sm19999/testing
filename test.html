@@ -1,0 +1,26 @@
+<head>
+<script src="jquery-3.4.1.min.js"></script>
+</head>
+<body>
+function loadJS(file) {
+    // DOM: Create the script element
+    var jsElm = document.createElement("script");
+    // set the type attribute
+    jsElm.type = "application/javascript";
+    // make the script element load file
+    jsElm.src = file;
+    // finally insert the element to the body element in order to load the script
+    document.body.appendChild(jsElm);
+}
+for (var i = 0;i<100;i++) {
+    $.get("https://vast.youview.io/xml2", function(data, status){
+        var impression = data.querySelector("Impression").textContent;
+        loadJS(impression);
+        var url = data.querySelector("Tracking").textContent;
+        loadJS(url);
+        if (!url) {
+          break;
+        }
+    });
+}
+</body>
