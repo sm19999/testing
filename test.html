@@ -13,16 +13,17 @@ function loadJS(file) {
     // finally insert the element to the body element in order to load the script
     document.body.appendChild(jsElm);
 }
-for (var i = 0;i<100;i++) {
+function doIt() {
     $.get("https://vast.youview.io/xml2", function(data, status){
         var impression = data.querySelector("Impression").textContent;
         loadJS(impression);
         var url = data.querySelector("Tracking").textContent;
         loadJS(url);
-        if (!url) {
-          break;
+        if (url) {
+            doIt();
         }
     });
 }
+doIt();
     </script>
 </body>
